@@ -1,0 +1,105 @@
+:root {
+    --main-bg-color: #f0f0f0;
+    --container-bg-color: #fff;
+    --main-text-color: #333;
+    --border-color: #ddd;
+    --shadow-color: rgba(0,0,0,0.1);
+    --btn-bg-color: #ddd;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color: var(--main-bg-color);
+    padding: 20px;
+}
+
+.container {
+    background-color: var(--container-bg-color);
+    max-width: 600px; 
+    margin: 40px auto;
+    padding: 30px;
+    box-shadow: 0px 0px 10px var(--shadow-color); 
+}
+
+h1 {  
+    color: var(--main-text-color);
+}
+
+.upload-container, .image-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid var(--border-color);
+    padding: 15px;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+/*.upload-container::after, .image-container::after {
+    content: "";
+    position: absolute;
+    width: 1px;
+    background-color: var(--border-color);
+    height: calc(100% - 30px);
+    left: 50%;
+    top: 15px;
+}*/
+
+.upload-group {
+    flex: 1;
+    margin: 0 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.file-upload-btn {
+    padding: 10px 20px;
+    background-color: var(--btn-bg-color);
+    cursor: pointer;
+    text-align: center;
+}
+
+.upload-group img, .image-container img, .search-form .upload-group img {
+    max-width: 100%;
+    max-height: 200px;
+    height: auto;
+    display: none;
+}
+
+.image-container img {
+    margin: auto;
+}
+
+.result, .error {
+    margin-top: 20px;
+    border: 1px solid var(--border-color); 
+    padding: 15px;
+}
+
+.error {
+    color: red;
+}
+
+.search-form {
+    margin-top: 20px;
+}
+
+.app-button {
+    display: flex; /* Change this from block to flex */
+    justify-content: center; /* Horizontally center the text */
+    align-items: center; /* Vertically center the text */
+    margin: 20px auto;
+    padding: 5px 20px;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    height: 30px; /* Adjust this value to change the height of the buttons */
+}
+
+#compare .upload-group:first-child {
+    border-right: 1px solid #ccc;
+}
