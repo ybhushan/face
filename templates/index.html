@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Face Recognition App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>  
+</head>
+<body>
+    <div class="container">  
+        <h1>Face Recognition App</h1>
+
+        <!-- Add this block to display messages -->
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <div class="alert alert-info">
+                    {% for message in messages %}
+                        {{ message }}
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link active" id="compare-tab" data-toggle="tab" href="#compare" onclick="clearMessages(); clearImages();">Compare Faces</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="search-tab" data-toggle="tab" href="#search" onclick="clearMessages(); clearImages();">Search Faces</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="add-tab" data-toggle="tab" href="#add" onclick="clearMessages(); clearImages();">Add Images</a>
+            </li>
+        </ul>
+        <div class="tab-content">
+            <div class="tab-pane fade show active" id="compare">
+                <form id="compareForm" method="POST" enctype="multipart/form-data" action="/compare">
+                    <div style="display: flex; justify-content: space-between; border: 1px solid #ccc; padding: 20px; border-radius: 10px;">
+                        <div class="upload-group" style="display: flex; flex-direction: column; align-items: center;">
+                            <label for="image1" class="app-button" style="margin-bottom: 20px;">Select First Image</label>
+                            <div class="image-container">
+                                <img id="image1Display" src="" alt="Image Preview" />
+                            </div>
+                            <input type="file" name="image1" id="image1" accept="image/*" required onchange="previewImage(this, 'image1Display')" style="display: none;">
+                        </div>
+                        <div class="upload-group" style="display: flex; flex-direction: column; align-items: center;">
+                            <label for="image2" class="app-button" style="margin-bottom: 20px;">Select Second Image</label>
+                            <div class="image-container">
+                                <img id="image2Display" src="" alt="Image Preview" />
+                            </div>
+                            <input type="file" name="image2" id="image2" accept="image/*" required onchange="previewImage(this, 'image2Display')" style="display: none;">
+                        </div>
+                    </div>
+                    <button type="submit" class="app-button">Compare Images</button>
+                </form>
+                <div id="outcomeMessage"></div>
+            </div>
+            <div class="tab-pane fade" id="search">
+                <form id="searchForm" method="POST" enctype="multipart/form-data" action="/search">
+                    <div class="upload-group">
+                        <input type="file" name="image" id="searchImage" accept="image/*" required onchange="previewImage(this, 'searchImageDisplay')" style="display: none;">
+                        <label for="searchImage" class="app-button">Select File</label>
+                    </div>
+                    <div class="image-container">
+                        <img id="searchImageDisplay" src="" alt="Image Preview" />
+                    </div>
+                    <button type="submit" class="app-button">Search Image</button>
+                </form>
+                <!-- Add a div to display the search results -->
+                <div class="result-container"></div>
+            </div>
+            <div class="tab-pane fade" id="add">
+                <form id="addForm" method="POST" enctype="multipart/form-data" action="/upload">
+                    <div class="upload-group">
+                        <input type="file" name="image" id="image" accept="image/*" required onchange="previewImage(this, 'imageDisplay')" style="display: none;">
+                        <label for="image" class="app-button">Select File</label>
+                    </div>
+                    <div class="image-container">
+                        <img id="imageDisplay" src="" alt="Image Preview" />
+                    </div>
+                    <button type="submit" class="app-button">Add Image</button>
+                </form>
+                <div id="addMessage"></div>
+            </div>
+        </div>
+    </div> 
+    <script src="{{ url_for('static', filename='script.js') }}"></script> 
+</body>
+</html>
